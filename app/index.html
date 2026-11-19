@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vice Coast Cover Studio</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">VC</span>
+    <span class="brand-name">VICE COAST <em>Cover Studio</em></span>
+  </div>
+  <p class="topbar-note">Offline &middot; your photos never leave this machine</p>
+</header>
+
+<main class="app">
+  <section class="controls" aria-label="Cover controls">
+
+    <section class="group" id="group-photos">
+      <h2>1 &middot; Photos</h2>
+      <div class="dropzone" id="dropzone" tabindex="0">
+        <p>Drop photos here or</p>
+        <label class="btn" for="photoInput">Choose photos</label>
+        <input id="photoInput" type="file" accept="image/*" multiple hidden>
+      </div>
+      <div class="sample-row">
+        <button class="btn ghost" id="sampleAll" type="button">Load sample photos</button>
+        <button class="btn ghost" id="sampleBoulevard" type="button">Boulevard</button>
+        <button class="btn ghost" id="samplePier" type="button">Pier</button>
+      </div>
+      <div class="thumbs" id="thumbs" aria-label="Loaded photos"></div>
+      <p class="hint">Click a panel on the preview, then drag the photo inside it. Scroll or use the zoom slider to crop.</p>
+    </section>
+
+    <section class="group" id="group-layout">
+      <h2>2 &middot; Layout</h2>
+      <div class="layout-grid" id="layoutGrid" role="radiogroup" aria-label="Cover layout">
+        <button type="button" data-layout="grid9" class="layout-btn" aria-pressed="true">
+          <span class="mini mini-grid9"></span>9-panel grid</button>
+        <button type="button" data-layout="hero3" class="layout-btn" aria-pressed="false">
+          <span class="mini mini-hero3"></span>Hero + 3</button>
+        <button type="button" data-layout="panels4" class="layout-btn" aria-pressed="false">
+          <span class="mini mini-panels4"></span>4-panel</button>
+        <button type="button" data-layout="fullbleed" class="layout-btn" aria-pressed="false">
+          <span class="mini mini-fullbleed"></span>Full-bleed</button>
+        <button type="button" data-layout="tilted" class="layout-btn" aria-pressed="false">
+          <span class="mini mini-tilted"></span>Tilted snapshots</button>
+      </div>
+    </section>
+
+    <section class="group" id="group-grade">
+      <h2>3 &middot; Colour grade</h2>
+      <div class="grade-row" id="gradeRow" role="radiogroup" aria-label="Colour grade">
+        <button type="button" data-grade="sunset" class="grade-btn" aria-pressed="false">
+          <span class="swatch sw-sunset"></span>Sunset</button>
+        <button type="button" data-grade="neon" class="grade-btn" aria-pressed="false">
+          <span class="swatch sw-neon"></span>Neon</button>
+        <button type="button" data-grade="vice" class="grade-btn" aria-pressed="true">
+          <span class="swatch sw-vice"></span>Vice</button>
+        <button type="button" data-grade="dusk" class="grade-btn" aria-pressed="false">
+          <span class="swatch sw-dusk"></span>Dusk</button>
+        <button type="button" data-grade="mono" class="grade-btn" aria-pressed="false">
+          <span class="swatch sw-mono"></span>Mono</button>
+      </div>
+      <label class="slider-label">Grade intensity
+        <input id="intensity" type="range" min="0" max="100" value="75">
+        <span class="slider-val" id="intensityVal">75%</span>
+      </label>
+    </section>
+
+    <section class="group" id="group-effects">
+      <h2>4 &middot; Print effects</h2>
+      <label class="slider-label">Film grain
+        <input id="grain" type="range" min="0" max="100" value="35">
+        <span class="slider-val" id="grainVal">35%</span>
+      </label>
+      <label class="slider-label">Vignette
+        <input id="vignette" type="range" min="0" max="100" value="55">
+        <span class="slider-val" id="vignetteVal">55%</span>
+      </label>
+      <label class="slider-label">Halftone dots
+        <input id="halftone" type="range" min="0" max="100" value="0">
+        <span class="slider-val" id="halftoneVal">0%</span>
+      </label>
+      <label class="check-label"><input id="ink" type="checkbox" checked> Ink panel borders</label>
+    </section>
+
+    <section class="group" id="group-lettering">
+      <h2>5 &middot; Lettering</h2>
+      <label class="text-label">Title
+        <input id="titleInput" type="text" maxlength="24" value="NEON SHORE">
+      </label>
+      <label class="text-label">Subtitle
+        <input id="subtitleInput" type="text" maxlength="40" value="a vice coast story">
+      </label>
+      <label class="text-label">Badge / ribbon
+        <input id="badgeInput" type="text" maxlength="18" value="VICE COAST">
+      </label>
+      <label class="slider-label">Heat meter
+        <input id="stars" type="range" min="0" max="5" step="1" value="5">
+        <span class="slider-val" id="starsVal">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      </label>
+    </section>
+
+    <section class="group" id="group-panels">
+      <h2>6 &middot; Selected panel</h2>
+      <p class="hint" id="panelHint">Click a panel on the preview to select it.</p>
+      <div class="panel-editor" id="panelEditor" hidden>
+        <p class="panel-name" id="panelName">Panel 1</p>
+        <label class="text-label">Photo
+          <select id="panelPhoto"></select>
+        </label>
+        <label class="slider-label">Zoom
+          <input id="panelZoom" type="range" min="100" max="300" value="115">
+          <span class="slider-val" id="panelZoomVal">1.15&times;</span>
+        </label>
+        <p class="hint">Drag inside the panel on the preview to move the photo.</p>
+      </div>
+    </section>
+
+    <section class="group" id="group-actions">
+      <h2>7 &middot; Finish</h2>
+      <div class="action-row">
+        <button class="btn ghost" id="undoBtn" type="button" disabled>&#8630; Undo</button>
+        <button class="btn ghost" id="redoBtn" type="button" disabled>&#8631; Redo</button>
+        <button class="btn ghost" id="randomBtn" type="button">&#127922; Randomize</button>
+      </div>
+      <div class="export-row" id="exportRow">
+        <button class="btn export" type="button" data-export="1080x1080">PNG 1080 &times; 1080</button>
+        <button class="btn export" type="button" data-export="1080x1350">PNG 1080 &times; 1350</button>
+        <button class="btn export" type="button" data-export="1920x1080">PNG 1920 &times; 1080</button>
+        <button class="btn export" type="button" data-export="1080x1920">PNG 1080 &times; 1920 story</button>
+      </div>
+      <p class="hint">Exports are PNG files, saved straight to your downloads. No upload, no watermark.</p>
+      <p id="status" role="status"></p>
+    </section>
+  </section>
+
+  <section class="preview" aria-label="Live cover preview">
+    <div class="preview-frame">
+      <canvas id="cover" width="900" height="900" aria-label="The cover preview"></canvas>
+      <p class="preview-caption" id="previewCaption">Live preview &middot; click a panel to edit it</p>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="./src/main.js"></script>
+<script type="module" src="./src/shots.js"></script>
+</body>
+</html>
